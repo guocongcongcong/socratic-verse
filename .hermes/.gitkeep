@@ -1,0 +1,3 @@
+# .hermes directory
+# QA prompt files - development artifacts, not user-facing
+.hermes/
