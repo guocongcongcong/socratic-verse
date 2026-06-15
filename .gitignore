@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# temp
+temp/
+
+# Obsidian
+.obsidian/workspace*.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
