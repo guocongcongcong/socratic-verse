@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Socratic Verse — AI Asks, You Think</title>
+  <meta name="description" content="Socratic Verse is an open AI learning system that reverses the paradigm: the AI doesn't answer you — the AI questions you. 9 proven methods. 3 AI teachers. Zero marginal cost.">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600&family=Source+Code+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --purple: #533afd;
+      --purple-hover: #4434d4;
+      --purple-light: #b9b9f9;
+      --navy: #061b31;
+      --slate: #64748d;
+      --dark-slate: #273951;
+      --border: #e5edf5;
+      --brand-dark: #1c1e54;
+      --ruby: #ea2261;
+      --magenta: #f96bee;
+      --success: #15be53;
+      --success-text: #108c3d;
+      --shadow-blue: rgba(50,50,93,0.25);
+      --shadow-black: rgba(0,0,0,0.1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Source Sans 3', system-ui, -apple-system, sans-serif;
+      color: var(--slate);
+      background: #ffffff;
+      line-height: 1.6;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Nav */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+    nav .inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+    nav .logo {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--navy);
+      letter-spacing: -0.2px;
+    }
+    nav .logo span { color: var(--purple); }
+    nav a {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--navy);
+      text-decoration: none;
+      margin-left: 28px;
+    }
+    nav a.cta {
+      background: var(--purple);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    nav a.cta:hover { background: var(--purple-hover); }
+
+    /* Hero */
+    .hero {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 100px 24px 80px;
+      text-align: center;
+    }
+    .hero .badge {
+      display: inline-block;
+      background: rgba(21,190,83,0.15);
+      color: var(--success-text);
+      font-size: 12px;
+      font-weight: 400;
+      padding: 4px 12px;
+      border-radius: 4px;
+      border: 1px solid rgba(21,190,83,0.3);
+      margin-bottom: 32px;
+      letter-spacing: 0.3px;
+    }
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 300;
+      color: var(--navy);
+      line-height: 1.15;
+      letter-spacing: -0.96px;
+      margin-bottom: 24px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--purple);
+    }
+    .hero .sub {
+      font-size: 20px;
+      font-weight: 300;
+      color: var(--slate);
+      line-height: 1.5;
+      max-width: 640px;
+      margin: 0 auto 40px;
+    }
+    .hero .btns {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 400;
+      padding: 10px 24px;
+      border-radius: 4px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--purple);
+      color: #fff;
+      border: none;
+    }
+    .btn-primary:hover { background: var(--purple-hover); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--purple);
+      border: 1px solid var(--purple-light);
+    }
+    .btn-ghost:hover { background: rgba(83,58,253,0.05); }
+
+    /* Section */
+    section {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+    section.dark {
+      background: var(--brand-dark);
+      max-width: none;
+      color: rgba(255,255,255,0.85);
+    }
+    section.dark .inner {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    section h2 {
+      font-size: 32px;
+      font-weight: 300;
+      color: var(--navy);
+      letter-spacing: -0.64px;
+      margin-bottom: 16px;
+    }
+    section.dark h2 { color: #fff; }
+    section .sec-desc {
+      font-size: 18px;
+      color: var(--slate);
+      margin-bottom: 48px;
+      max-width: 600px;
+    }
+    section.dark .sec-desc { color: rgba(255,255,255,0.7); }
+
+    /* Grid */
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 28px;
+      box-shadow: rgba(23,23,23,0.06) 0px 3px 6px;
+      transition: box-shadow 0.2s;
+    }
+    .card:hover {
+      box-shadow: var(--shadow-blue) 0px 30px 45px -30px, var(--shadow-black) 0px 18px 36px -18px;
+    }
+    .card h3 {
+      font-size: 20px;
+      font-weight: 300;
+      color: var(--navy);
+      letter-spacing: -0.3px;
+      margin-bottom: 8px;
+    }
+    .card .emoji { font-size: 28px; margin-bottom: 12px; display: block; }
+    .card p { font-size: 15px; margin-bottom: 0; }
+    .card .tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 400;
+      background: rgba(83,58,253,0.08);
+      color: var(--purple);
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-top: 12px;
+    }
+    .card.dark-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.8);
+      box-shadow: none;
+    }
+    .card.dark-card h3 { color: #fff; }
+    .card.dark-card .tag { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.8); }
+
+    /* Table */
+    .method-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-top: 32px;
+    }
+    .method-table th, .method-table td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .method-table th {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: rgba(255,255,255,0.5);
+    }
+    .method-table td { font-weight: 300; }
+    .method-table .v { color: var(--purple-light); font-weight: 400; }
+    .stars { color: #ffd43b; }
+
+    /* Code Block */
+    .code-block {
+      background: #0d1117;
+      border-radius: 6px;
+      padding: 24px;
+      overflow-x: auto;
+      margin: 24px 0;
+      position: relative;
+    }
+    .code-block pre {
+      font-family: 'Source Code Pro', ui-monospace, monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #e6edf3;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    .code-block .comment { color: #8b949e; }
+    .code-block .cmd { color: #79c0ff; }
+    .code-block .btn-copy {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #c9d1d9;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Source Sans 3', sans-serif;
+      transition: all 0.2s;
+    }
+    .code-block .btn-copy:hover { background: rgba(255,255,255,0.2); }
+    .code-block .btn-copy.copied { background: var(--success); border-color: var(--success); color: #fff; }
+
+    /* Prompts Section */
+    .prompt-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0;
+      overflow: hidden;
+      margin-bottom: 20px;
+      box-shadow: rgba(23,23,23,0.06) 0px 3px 6px;
+    }
+    .prompt-card .prompt-header {
+      background: #f8f9fc;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+    .prompt-card .prompt-header h3 {
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--navy);
+      margin: 0;
+    }
+    .prompt-card .prompt-body {
+      padding: 20px 24px;
+      background: #0d1117;
+      font-family: 'Source Code Pro', ui-monospace, monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #e6edf3;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 24px;
+      text-align: center;
+      font-size: 14px;
+      color: var(--slate);
+    }
+    footer a { color: var(--purple); text-decoration: none; }
+
+    /* Testimonial Quote */
+    .quote {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 40px;
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto;
+      box-shadow: var(--shadow-blue) 0px 30px 45px -30px, var(--shadow-black) 0px 18px 36px -18px;
+    }
+    .quote .q { font-size: 24px; font-weight: 300; color: var(--navy); line-height: 1.4; font-style: italic; }
+    .quote .q::before { content: '\201C'; }
+    .quote .q::after { content: '\201D'; }
+    .quote .author { margin-top: 16px; font-size: 14px; color: var(--slate); }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 32px; letter-spacing: -0.64px; }
+      .hero .sub { font-size: 17px; }
+      section { padding: 56px 20px; }
+      section h2 { font-size: 26px; }
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      nav a.hide-mobile { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <div class="logo">Socratic <span>Verse</span></div>
+    <div>
+      <a href="#what" class="hide-mobile">What</a>
+      <a href="#methods" class="hide-mobile">Methods</a>
+      <a href="#try" class="hide-mobile">Try It</a>
+      <a href="https://github.com/guocongcongcong/socratic-verse" target="_blank" class="cta">GitHub ↗</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="badge">Phase 1 — Open Source · June 2026</div>
+  <h1>The AI that <em>questions you</em>,<br>not answers you.</h1>
+  <p class="sub">
+    Socratic Verse reverses the paradigm. Instead of asking AI for answers, 
+    the AI asks <strong>you</strong> — guiding you to discover everything through your own reasoning. 
+    Powered by 2,400 years of cognitive science. Driven by Claude.
+  </p>
+  <div class="btns">
+    <a href="#try" class="btn btn-primary">Try It in Claude →</a>
+    <a href="https://github.com/guocongcongcong/socratic-verse" target="_blank" class="btn btn-ghost">View on GitHub</a>
+  </div>
+</header>
+
+<!-- What is it -->
+<section id="what">
+  <h2>What is Socratic Verse?</h2>
+  <p class="sec-desc">
+    An open AI learning system. You drop in study material (markdown/pdf/txt). 
+    The AI doesn't lecture you — it leads you through a chain of questions until you arrive at every insight yourself. 
+  </p>
+  <div class="grid-3">
+    <div class="card">
+      <span class="emoji">🔄</span>
+      <h3>Reversed Interaction</h3>
+      <p>AI doesn't give answers. It asks. You reason. You explain. You discover. 4 rounds of retrieval per concept.</p>
+      <span class="tag">Core paradigm</span>
+    </div>
+    <div class="card">
+      <span class="emoji">🧠</span>
+      <h3>9 Proven Methods</h3>
+      <p>From Cornell notes to Socratic seminars. 2,400 years of learning science packed into 9 prompt-driven methods.</p>
+      <span class="tag">Method pluralism</span>
+    </div>
+    <div class="card">
+      <span class="emoji">👩‍🏫</span>
+      <h3>3 AI Teachers</h3>
+      <p>March 7 (energetic), Ganyu (gentle math prodigy), Keqing (strict & efficient). Each with a distinct personality.</p>
+      <span class="tag">Teacher characters</span>
+    </div>
+    <div class="card">
+      <span class="emoji">📂</span>
+      <h3>Markdown-Driven</h3>
+      <p>All learning materials are plain markdown. No database. No platform lock-in. Anyone can contribute.</p>
+      <span class="tag">Open system</span>
+    </div>
+    <div class="card">
+      <span class="emoji">🎙️</span>
+      <h3>Voice Mode (Q4 2026)</h3>
+      <p>TTS + STT so you can learn while walking. AI speaks to you, you speak back. Learn hands-free.</p>
+      <span class="tag">Phase 3</span>
+    </div>
+    <div class="card">
+      <span class="emoji">🎮</span>
+      <h3>Game Mode (2027)</h3>
+      <p>Create your own avatar. Knowledge becomes quests, battles, and exploration maps. Learning as play.</p>
+      <span class="tag">Phase 4</span>
+    </div>
+  </div>
+</section>
+
+<!-- The Science -->
+<section class="dark">
+  <div class="inner">
+    <h2>The Science</h2>
+    <p class="sec-desc">
+      In 2008, Karpicke & Roediger published a landmark study in <em>Science</em>: 
+      one retrieval test outperformed three extra readings. 
+      <strong>Retrieval once beats reading three times.</strong> 
+      Yet most people still re-read — because retrieval demands willpower, 
+      and re-reading demands none. 
+    </p>
+    <div class="grid-2" style="margin-top: 48px;">
+      <div class="card dark-card">
+        <h3>The Problem</h3>
+        <p>The most effective learning methods — Socratic discussion, peer teaching, retrieval practice — all require another person. But the most persistent learning must happen alone (willpower is finite). This is the fundamental contradiction of learning.</p>
+      </div>
+      <div class="card dark-card">
+        <h3>Our Answer</h3>
+        <p>AI <em>is</em> that other person. For the first time in 2,400 years, retrieval intensity and willpower cost are decoupled. A tireless AI partner who questions, challenges, and guides — at zero marginal cost.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Methods -->
+<section id="methods">
+  <h2>9 Learning Methods</h2>
+  <p class="sec-desc">
+    Not 9 competing methods — 9 points on a single spectrum. From lightest extraction (Cornell) to deepest (Socratic). Pick based on your energy level today.
+  </p>
+  <table class="method-table" style="color: var(--navy);">
+    <thead>
+      <tr style="border-bottom: 2px solid var(--border);">
+        <th>Method</th><th>Retrieval</th><th>Willpower</th><th>Best For</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="v" style="color: var(--slate);">Re-reading (baseline)</td><td class="stars">☆</td><td>Zero</td><td>Initial scan only</td></tr>
+      <tr><td class="v" style="color: var(--purple);">V1 Cornell Notes</td><td class="stars">★★</td><td class="stars">★</td><td>Gentle start</td></tr>
+      <tr><td class="v" style="color: var(--purple);">V2 Spaced Repetition (Anki)</td><td class="stars">★★★</td><td class="stars">★</td><td>Long-term memory</td></tr>
+      <tr><td class="v" style="color: var(--purple);">V3 Random Dice</td><td class="stars">★★★★</td><td class="stars">★★</td><td>When you don't know what to study</td></tr>
+      <tr><td class="v" style="color: var(--purple);">V4 Closed-Book Recall</td><td class="stars">★★★★</td><td class="stars">★★★★</td><td>Deep mastery after reading</td></tr>
+      <tr><td class="v" style="color: var(--purple);">V5 Feynman Technique</td><td class="stars">★★★★</td><td class="stars">★★★★</td><td>Testing understanding depth</td></tr>
+      <tr><td class="v" style="color: var(--purple);">V6 Interleaved Practice</td><td class="stars">★★★★★</td><td class="stars">★★★★★</td><td>Multi-subject, find concept boundaries</td></tr>
+      <tr><td class="v" style="color: var(--purple);">V7 Socratic Seminar</td><td class="stars">★★★★★</td><td class="stars">★★</td><td>Deep learning (default)</td></tr>
+      <tr><td class="v" style="color: var(--purple);">V8 Peer Teaching</td><td class="stars">★★★★★</td><td class="stars">★★</td><td>Two-person exchange simulation</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- Claude Prompts -->
+<section id="try" class="dark">
+  <div class="inner">
+    <h2>Use It in Claude Code — Right Now</h2>
+    <p class="sec-desc">
+      You need Claude Code installed and a study material (pdf, markdown, txt). Copy any prompt below, paste into Claude Code, and start being questioned.
+    </p>
+
+    <div class="prompt-card" style="background: transparent; border: 1px solid rgba(255,255,255,0.12); margin-top: 32px;">
+      <div class="prompt-header" style="background: rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.1);">
+        <h3 style="color: #fff;">🚀 Quick Start (60 seconds)</h3>
+        <button class="btn-copy" onclick="copyPrompt(this, 'p1')" style="position: static;">Copy</button>
+      </div>
+      <div class="prompt-body" id="p1">git clone git@github.com:guocongcongcong/socratic-verse.git
+cd socratic-verse
+
+# Put your study material in materials/
+cp ~/path/to/your-textbook.md materials/
+
+# Launch Claude Code
+claude
+
+# Then say:
+"Please read teacher/system.md first, then use V7 Socratic Seminar mode to teach me materials/&lt;your-file&gt;."</div>
+    </div>
+
+    <div class="prompt-card" style="background: transparent; border: 1px solid rgba(255,255,255,0.12); margin-top: 20px;">
+      <div class="prompt-header" style="background: rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.1);">
+        <h3 style="color: #fff;">🎲 V3 Random Dice — "I don't know what to study"</h3>
+        <button class="btn-copy" onclick="copyPrompt(this, 'p2')" style="position: static;">Copy</button>
+      </div>
+      <div class="prompt-body" id="p2">Please read teacher/system.md first.
+Use V3 Random Dice mode.
+Pick a random question from materials/&lt;your-file&gt; and question me.
+After I answer, roll again.</div>
+    </div>
+
+    <div class="prompt-card" style="background: transparent; border: 1px solid rgba(255,255,255,0.12); margin-top: 20px;">
+      <div class="prompt-header" style="background: rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.1);">
+        <h3 style="color: #fff;">👦 V5 Feynman — "Explain it to a high schooler"</h3>
+        <button class="btn-copy" onclick="copyPrompt(this, 'p3')" style="position: static;">Copy</button>
+      </div>
+      <div class="prompt-body" id="p3">Please read teacher/system.md first.
+Use V5 Feynman Technique mode.
+Play a high school student who knows nothing about the topic.
+Whenever I use jargon, interrupt me and ask "what does that mean in plain English?"
+Teach me materials/&lt;your-file&gt;.</div>
+    </div>
+
+    <div class="prompt-card" style="background: transparent; border: 1px solid rgba(255,255,255,0.12); margin-top: 20px;">
+      <div class="prompt-header" style="background: rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.1);">
+        <h3 style="color: #fff;">🗣️ V7 Socratic — Deep dive (default)</h3>
+        <button class="btn-copy" onclick="copyPrompt(this, 'p4')" style="position: static;">Copy</button>
+      </div>
+      <div class="prompt-body" id="p4">Please read teacher/system.md first.
+Use V7 Socratic Seminar mode with teacher March 7.
+Never give me direct answers. Use a chain of escalating questions.
+Start from the surface and push deeper with each follow-up.
+Guide me to discover all key concepts through my own reasoning.
+Teach me materials/&lt;your-file&gt;.</div>
+    </div>
+
+    <div class="prompt-card" style="background: transparent; border: 1px solid rgba(255,255,255,0.12); margin-top: 20px;">
+      <div class="prompt-header" style="background: rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.1);">
+        <h3 style="color: #fff;">📚 V4 Closed-Book — After finishing a chapter</h3>
+        <button class="btn-copy" onclick="copyPrompt(this, 'p5')" style="position: static;">Copy</button>
+      </div>
+      <div class="prompt-body" id="p5">Please read teacher/system.md first.
+Use V4 Closed-Book Recall mode.
+Assume I just finished reading materials/&lt;your-file&gt;.
+Guide me to recall everything I remember on a blank slate.
+Then show me what I missed and question why I missed it.</div>
+    </div>
+
+    <div class="prompt-card" style="background: transparent; border: 1px solid rgba(255,255,255,0.12); margin-top: 20px;">
+      <div class="prompt-header" style="background: rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.1);">
+        <h3 style="color: #fff;">👥 V8 Peer Teaching — "Let's teach each other"</h3>
+        <button class="btn-copy" onclick="copyPrompt(this, 'p6')" style="position: static;">Copy</button>
+      </div>
+      <div class="prompt-body" id="p6">Please read teacher/system.md first.
+Use V8 Peer Teaching mode.
+Play a peer at my level but with a different perspective.
+We take turns teaching each other concepts from materials/&lt;your-file&gt;.
+Challenge my reasoning. Demand evidence. Question my assumptions.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Quote -->
+<section>
+  <div class="quote">
+    <p class="q">I let the AI question me for 20 minutes. What I learned felt deeper than 2 hours of reading. It's like having Socrates on call — but Socrates is a tireless AI that never gets bored of your confusion.</p>
+    <p class="author">— Beta user, June 2026</p>
+  </div>
+</section>
+
+<footer>
+  <p>
+    <strong>Socratic Verse</strong> · 
+    <a href="https://github.com/guocongcongcong/socratic-verse">GitHub</a> · 
+    MIT License · 
+    Made by <a href="https://github.com/guocongcongcong">锅釨</a>
+  </p>
+</footer>
+
+<script>
+function copyPrompt(btn, id) {
+  const text = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>
