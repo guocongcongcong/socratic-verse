@@ -560,6 +560,76 @@ Play a peer at my level but with a different perspective.
 We take turns teaching each other concepts from materials/&lt;your-file&gt;.
 Challenge my reasoning. Demand evidence. Question my assumptions.</div>
     </div>
+
+    <!-- One-Click Citation Mode -->
+    <div style="margin-top: 48px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1);">
+      <h3 style="color: #fff; font-size: 24px; font-weight: 300; letter-spacing: -0.4px; margin-bottom: 8px;">📎 One-Click Citation Mode</h3>
+      <p style="color: rgba(255,255,255,0.6); font-size: 16px; font-weight: 300; margin-bottom: 24px;">
+        Add one line to any prompt. The AI will automatically cite the original passages it uses and explain <em>why</em> each passage matters.
+      </p>
+      <div class="card dark-card" style="margin-bottom: 20px; padding: 24px;">
+        <h3 style="color: #fff; margin-bottom: 12px;">The line to add</h3>
+        <div style="background: #0d1117; border-radius: 6px; padding: 24px; font-family: 'Source Code Pro', monospace; font-size: 13px; line-height: 1.7; color: #e6edf3;">
+          After each round of questioning, automatically list the original passages you referenced and explain your reasoning for citing them.
+        </div>
+        <button class="btn-copy" onclick="copyPrompt(this, 'citation-line')" style="margin-top: 12px; display: inline-block; background: transparent; border: 1px solid rgba(255,255,255,0.2); color: #c9d1d9; font-size: 12px; padding: 4px 12px; border-radius: 4px; cursor: pointer; font-family: 'Source Sans 3', sans-serif;">Copy citation line</button>
+        <div id="citation-line" style="display: none;">After each round of questioning, automatically list the original passages you referenced and explain your reasoning for citing them.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Citation Feature -->
+<section>
+  <h2>Citation Mode — What You Get</h2>
+  <p class="sec-desc">
+    With the citation line added, every AI response includes a structured citation block that shows you exactly which passages support your reasoning. This isn't just verification — it's a third layer of retrieval.
+  </p>
+  <div class="grid-3">
+    <div class="card">
+      <span class="emoji">📖</span>
+      <h3>Cited Passage</h3>
+      <p>The original text your reasoning drew from. Verbatim. No paraphrasing.</p>
+      <span class="tag">Verification</span>
+    </div>
+    <div class="card">
+      <span class="emoji">💡</span>
+      <h3>Citation Reason</h3>
+      <p>Why this passage applies. The AI explains the logical link between the source and your conclusion.</p>
+      <span class="tag">Transparency</span>
+    </div>
+    <div class="card">
+      <span class="emoji">🔄</span>
+      <h3>Retrieval x3</h3>
+      <p>You retrieve when you answer. You retrieve again when the AI cites the text. You retrieve a third time when you verify the citation. That's three retrievals per concept, automated.</p>
+      <span class="tag">Meta-learning</span>
+    </div>
+  </div>
+</section>
+
+<!-- Docs -->
+<section class="dark">
+  <div class="inner">
+    <h2>Documentation</h2>
+    <p class="sec-desc">
+      Full usage guides in both English and Chinese. Covers all 8 methods, 3 teachers, custom configuration, and FAQ.
+    </p>
+    <div class="grid-2" style="margin-top: 32px;">
+      <a href="https://github.com/guocongcongcong/socratic-verse/blob/main/docs/guide-en.md" target="_blank" style="text-decoration: none;">
+        <div class="card dark-card" style="cursor: pointer;">
+          <h3>🇬🇧 English Guide</h3>
+          <p style="margin: 0;">Quick start, all methods, teacher config, FAQ, citation mode.</p>
+          <span class="tag" style="margin-top: 12px;">Read →</span>
+        </div>
+      </a>
+      <a href="https://github.com/guocongcongcong/socratic-verse/blob/main/docs/guide-zh.md" target="_blank" style="text-decoration: none;">
+        <div class="card dark-card" style="cursor: pointer;">
+          <h3>🇨🇳 中文指南</h3>
+          <p style="margin: 0;">快速上手、全部方法、教师配置、常见问题、引文模式。</p>
+          <span class="tag" style="margin-top: 12px;">阅读 →</span>
+        </div>
+      </a>
+    </div>
   </div>
 </section>
 
