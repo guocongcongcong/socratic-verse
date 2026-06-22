@@ -3,7 +3,7 @@ title: OpenAI Agents SDK 指南
 created: 2026-05-19
 updated: 2026-05-19
 type: concept
-order: 2
+reference: R2
 tags: [agent, openai, sdk, guide, official]
 sources: [https://platform.openai.com/docs/guides/agents]
 confidence: high

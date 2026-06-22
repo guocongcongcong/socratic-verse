@@ -3,7 +3,7 @@ title: 工具与MCP
 created: 2026-05-19
 updated: 2026-05-19
 type: concept
-order: 6
+core_chain: 3
 tags: [tool, mcp, intermediate]
 confidence: high
 contested: false

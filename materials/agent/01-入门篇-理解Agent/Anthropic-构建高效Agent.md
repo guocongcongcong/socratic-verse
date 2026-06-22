@@ -3,7 +3,7 @@ title: Anthropic 官方指南：构建高效的 AI Agent
 created: 2026-05-19
 updated: 2026-05-19
 type: concept
-order: 1
+reference: R1
 tags: [agent, anthropic, guide, authoritative]
 sources: [https://www.anthropic.com/engineering/building-effective-agents]
 confidence: high

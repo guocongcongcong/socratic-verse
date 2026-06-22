@@ -3,7 +3,7 @@ title: LLM 驱动的自主 Agent 综述（Lilian Weng, 2023）
 created: 2026-05-19
 updated: 2026-05-19
 type: concept
-order: 3
+reference: R3
 tags: [agent, survey, planning, memory, tools, academic]
 sources: [https://lilianweng.github.io/posts/2023-06-23-agent/]
 confidence: high
