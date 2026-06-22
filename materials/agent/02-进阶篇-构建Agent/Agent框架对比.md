@@ -8,7 +8,7 @@ level: 进阶
 status: 未开始
 tags: [agent, intermediate, framework, langgraph, autogen, crewai, sdk]
 confidence: high
-teaching_method: V5-合书复述
+teaching_method: V7-对子互教
 est_hours: 1
 contested: false
 contradictions: []

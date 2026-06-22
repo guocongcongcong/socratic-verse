@@ -8,7 +8,7 @@ level: 进阶
 status: 未开始
 tags: [agent, intermediate, mcp, tool, security]
 confidence: high
-teaching_method: V2-费曼
+teaching_method: V1-苏格拉底
 est_hours: 1
 contested: false
 contradictions: []

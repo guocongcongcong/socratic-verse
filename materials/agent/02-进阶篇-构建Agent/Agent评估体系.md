@@ -8,7 +8,7 @@ level: 进阶
 status: 未开始
 tags: [agent, intermediate, benchmark, evaluation, swebench, gaia]
 confidence: high
-teaching_method: V5-合书复述
+teaching_method: V1-苏格拉底
 est_hours: 0.75
 contested: false
 contradictions: []
